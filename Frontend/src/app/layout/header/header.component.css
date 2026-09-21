@@ -1,0 +1,88 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #059669;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  height: 65px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  border-bottom: 3px solid #ffffff;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.logo img {
+  height: 40px;
+  width: auto;
+}
+
+.logo span {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #efe8e8;
+  letter-spacing: 1px;
+}
+
+.nav-tabs {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-right: 700px;
+}
+
+.nav-tabs a {
+  position: relative;
+  color: #efe8e8;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 0.3rem 0;
+  transition: color 0.2s;
+}
+
+.nav-tabs a::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 3px;
+  bottom: -5px;
+  left: 0;
+  background: #059669;
+  transition: width 0.25s ease-in-out;
+}
+
+.nav-tabs a:hover {
+  color: white;
+}
+
+.nav-tabs a:hover::after {
+  width: 100%;
+}
+
+.nav-tabs a.active {
+  color: white;
+}
+
+.nav-tabs a.active::after{
+  width: 100%;
+}
+
+.profile img {
+  height: 42px;
+  width: 42px;
+  border-radius: 50%;
+  border: 2px solid #efe8e8;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s;
+  background-color: #ddd;
+}
+
+.profile img:hover {
+  transform: scale(1.08);
+  border-color: white;
+}

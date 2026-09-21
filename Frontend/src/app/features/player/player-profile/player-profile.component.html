@@ -1,0 +1,214 @@
+<div class="equipo-layout">
+  <main class="ficha-content" *ngIf="!loading && player">
+    <section class="perfil-card">
+      <div class="perfil-left">
+        <div class="foto-perfil">
+          <img *ngIf="player.foto" [src]="'http://localhost:3000' + player.foto" />
+          <span *ngIf="!player.foto">
+            {{ player.nombre[0] }}
+          </span>
+        </div>
+      </div>
+
+      <div class="perfil-right">
+        <div class="perfil-top">
+          <div class="nombre-row">
+            <h1>{{ player.nombre }}</h1>
+
+            <div class="badges">
+              <span class="badge-rol">{{ player.Rol | titlecase }}</span>
+              <span class="badge-light">{{ age }} años</span>
+              <span class="badge-light" *ngIf="player.equipo_nombre">
+                {{ player.equipo_nombre }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="perfil-divider"></div>
+
+        <div class="datos-grid">
+          <div>
+            <strong>DNI</strong>
+            <p>{{ player.DNI }}</p>
+          </div>
+
+          <div>
+            <strong>Email</strong>
+            <p>{{ player.email }}</p>
+          </div>
+
+          <div>
+            <strong>Teléfono</strong>
+            <p>{{ player.telefono }}</p>
+          </div>
+
+          <div>
+            <strong>Año nacimiento</strong>
+            <p>{{ player.anio_nacimiento }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="ficha-bottom">
+      <!-- OBSERVACIONES -->
+      <section class="bloque">
+        <div class="bloque-header">
+          <h2>Historial de Observaciones</h2>
+          <button
+            *ngIf="authService.getUserRole() === 'entrenador'"
+            class="btn-add"
+            (click)="openObservationModal()"
+          >
+            <mat-icon>add_comment</mat-icon>
+            Añadir Nota
+          </button>
+        </div>
+
+        <div class="timeline-container">
+          @for (item of visibleObservations; track item.id) {
+            <div class="timeline-card" [attr.data-cat]="item.categoria">
+              <div class="timeline-dot-col">
+                <div class="dot" [attr.data-cat]="item.categoria"></div>
+                <div class="connector"></div>
+              </div>
+
+              <div class="timeline-body">
+                <div class="timeline-date">
+                  {{ item.fecha | date: 'dd MMM yyyy' }}
+                </div>
+
+                <div class="timeline-main">
+                  <div class="card-top">
+                    <div class="card-tags">
+                      <span class="badge" [ngClass]="item.categoria">{{ item.categoria }}</span>
+                      <span
+                        class="visibilidad-tag"
+                        *ngIf="authService.getUserRole() === 'entrenador'"
+                      >
+                        <mat-icon style="font-size: 12px; width: 12px; height: 12px">
+                          {{ item.visibilidad === 'privada' ? 'lock' : 'public' }}
+                        </mat-icon>
+                        {{ item.visibilidad }}
+                      </span>
+                    </div>
+                    <h3 class="obs-titulo">{{ item.titulo }}</h3>
+                  </div>
+
+                  <p class="obs-contenido">{{ item.contenido }}</p>
+
+                  <div class="obs-author">
+                    <div class="avatar-mini">
+                      <img
+                        *ngIf="item.foto_autor"
+                        [src]="'http://localhost:3000' + item.foto_autor"
+                      />
+                      <span *ngIf="!item.foto_autor">{{ item.nombre_autor[0] }}</span>
+                    </div>
+                    <span class="author-name">{{ item.nombre_autor }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          } @empty {
+            <div class="empty-state">
+              <mat-icon>history_edu</mat-icon>
+              <p>No hay observaciones registradas para este jugador aún.</p>
+            </div>
+          }
+        </div>
+
+        <button
+          *ngIf="observations().length > OBSERVATIONS_LIMIT"
+          class="btn-toggle-obs"
+          (click)="toggleObservations()"
+        >
+          <mat-icon>{{ showAllObservations ? 'expand_less' : 'expand_more' }}</mat-icon>
+          {{ showAllObservations ? 'Ocultar' : 'Ver más' }}
+        </button>
+      </section>
+
+      <!-- ESTADÍSTICAS -->
+      <section class="section-card">
+        <div class="section-header">
+          <h2>Estadísticas</h2>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-box">
+            <span class="stat-number">{{ totals.partidos || 0 }}</span>
+            <span class="stat-label">Partidos</span>
+          </div>
+
+          <div class="stat-box">
+            <span class="stat-number">{{ totals.goles || 0 }}</span>
+            <span class="stat-label">Goles</span>
+          </div>
+
+          <div class="stat-box">
+            <span class="stat-number">{{ totals.asistencias || 0 }}</span>
+            <span class="stat-label">Asistencias</span>
+          </div>
+
+          <div class="stat-box">
+            <span class="stat-number">{{ totals.amarillas || 0 }}</span>
+            <span class="stat-label">Tarjetas Amarillas</span>
+          </div>
+
+          <div class="stat-box">
+            <span class="stat-number">{{ totals.rojas || 0 }}</span>
+            <span class="stat-label">Tarjetas Rojas</span>
+          </div>
+
+          <div class="stat-box">
+            <span class="stat-number">{{ totals.minutos || 0 }}</span>
+            <span class="stat-label">Minutos Jugados</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="ai-teaser-card" *ngIf="player">
+        <div class="ai-teaser-bg-decoration"></div>
+
+        <div class="ai-teaser-content">
+          <div class="ai-teaser-left">
+            <div class="ai-teaser-text">
+              <h3>Panel de Inteligencia Artificial</h3>
+              <p>Análisis predictivo, rendimiento avanzado y clasificación automática de perfil.</p>
+            </div>
+          </div>
+
+          <div class="ai-teaser-center">
+            <div class="ai-pill">
+              <span class="pill-icon">⚡</span>
+              <span>Performance Score</span>
+            </div>
+            <div class="ai-pill">
+              <span class="pill-icon">📊</span>
+              <span>Radar de rendimiento</span>
+            </div>
+            <div class="ai-pill">
+              <span class="pill-icon">📅</span>
+              <span>Tendencia de asistencia</span>
+            </div>
+            <div class="ai-pill">
+              <span class="pill-icon">🎯</span>
+              <span>Clustering K-Means</span>
+            </div>
+          </div>
+
+          <div class="ai-teaser-right">
+            <a
+              class="ai-teaser-btn"
+              [routerLink]="['/equipo', teamId, 'jugador', player.DNI, 'panel-ia']"
+            >
+              <span>Ver análisis IA</span>
+              <mat-icon>arrow_forward</mat-icon>
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>

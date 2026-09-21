@@ -1,0 +1,321 @@
+.btn-volver {
+  position: fixed;
+  margin-top: 250px;
+  left: 24px;
+  background: #ffffff;
+  border: 1.5px solid #e0e0e0;
+  color: #333;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 50px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  z-index: 100;
+}
+
+.btn-volver:hover {
+  background: #059669;
+  color: #ffffff;
+  border-color: #059669;
+  box-shadow: 0 6px 18px rgba(30, 168, 58, 0.3);
+  transform: translateX(-2px);
+}
+
+.perfil-container {
+  display: flex;
+  gap: 50px;
+  padding: 50px 40px;
+  background: #f0f2f5;
+  min-height: calc(100vh - 65px);
+  align-items: flex-start;
+}
+
+.perfil-image {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background: transparent;
+}
+
+.foto-perfil-redonda {
+  width: 310px;
+  height: 310px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 6px solid #ffffff;
+  box-shadow: 0px 20px 45px rgba(0, 0, 0, 0.18);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.foto-perfil-redonda:hover {
+  transform: scale(1.03);
+  box-shadow: 0px 25px 55px rgba(0, 0, 0, 0.25);
+}
+
+.acciones-foto {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 260px;
+  margin-left: 30px;
+}
+
+.acciones-foto button {
+  padding: 14px 18px;
+  background: #444;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.acciones-foto button:hover {
+  background: #059669;
+  transform: translateY(-2px);
+}
+
+.acciones-edicion {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-guardar-foto {
+  padding: 14px 18px;
+  background: #059669;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+  flex: 1;
+}
+
+.btn-guardar-foto:hover {
+  background: #059669;
+  transform: translateY(-2px);
+}
+
+/* Botón Cancelar Foto */
+.btn-cancelar-foto {
+  padding: 14px 18px;
+  background: #444;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+  flex: 1;
+}
+
+.btn-cancelar-foto:hover {
+  background: #333;
+  transform: translateY(-2px);
+}
+
+.btn-changepassword {
+  background: #444 !important;
+}
+
+.btn-changepassword:hover {
+  background: #333 !important;
+}
+
+.change-pass-card {
+  width: 100%;
+  max-width: 480px;
+  padding: 30px 25px;
+  margin-top: 25px;
+  margin-left: 300px;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.14);
+  animation: fadeIn 0.3s ease;
+}
+
+.change-pass-card h2 {
+  text-align: center;
+  margin-bottom: 22px;
+  color: #1f1f1f;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.perfil-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.perfil-form label {
+  font-weight: 600;
+  color: #374151;
+}
+
+.perfil-form input,
+.perfil-form select {
+  padding: 13px 16px;
+  border-radius: 10px;
+  background: #f7f7f7;
+  border: 1px solid #c8c8c8;
+  transition: 0.2s ease;
+}
+
+.perfil-form input:focus,
+.perfil-form select:focus {
+  background: #ffffff;
+  border-color: #059669;
+  box-shadow: 0 0 0 3px rgba(30, 168, 58, 0.25);
+  outline: none;
+}
+
+.perfil-form button {
+  padding: 14px 18px;
+  background: #059669;
+  color: white;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.perfil-form button:hover {
+  background: #059669;
+  transform: translateY(-2px);
+}
+
+.perfil-form .actions {
+  display: flex;
+  gap: 12px;
+}
+
+.perfil-form .actions button:last-child {
+  background: #444;
+}
+
+.perfil-form .actions button:last-child:hover {
+  background: #333;
+}
+
+.perfil-form-container {
+  flex: 1;
+  background: #ffffff;
+  padding: 45px 40px;
+  border-radius: 18px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.14);
+}
+
+.perfil-message {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.perfil-message h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1f1f1f;
+}
+
+.perfil-message p {
+  font-size: 1rem;
+  color: #6b7280;
+}
+
+.perfil-card {
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+.info p {
+  margin: 8px 0;
+  font-size: 1.05rem;
+  color: #333;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.actions button {
+  flex: 1;
+  background: #444;
+  color: white;
+  padding: 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 12px;
+}
+
+.actions button:hover {
+  background: #059669;
+}
+
+.btn-logout {
+  background: #d93232 !important;
+}
+
+.btn-logout:hover {
+  background: #b71c1c !important;
+}
+
+.error {
+  color: #d32f2f;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.success {
+  color: #059669;
+  text-align: center;
+  margin-top: 5px;
+}
+
+@media (max-width: 1080px) {
+  .perfil-container {
+    flex-direction: column;
+    padding: 30px 20px;
+    gap: 30px;
+  }
+
+  .perfil-image,
+  .perfil-form-container {
+    width: 100%;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,149 @@
+<app-header></app-header>
+<button class="btn-volver" (click)="goBack()">← Volver</button>
+<div class="perfil-container">
+  <!-- 📸 Columna izquierda: Foto de perfil -->
+  <div class="perfil-image">
+    <div class="foto-area">
+      <img [src]="getProfileImage()" alt="Foto de perfil" class="foto-perfil-redonda" />
+
+      <div class="acciones-foto">
+        <button
+          *ngIf="!selectedFile && !isDependent"
+          class="btn-editar-foto"
+          (click)="fileInput.click()"
+        >
+          Editar foto
+        </button>
+
+        <div *ngIf="selectedFile && !isDependent" class="acciones-edicion">
+          <button class="btn-guardar-foto" (click)="savePhoto()" [disabled]="loading">
+            Guardar
+          </button>
+
+          <button class="btn-cancelar-foto" type="button" (click)="cancelPhoto()">Cancelar</button>
+        </div>
+
+        <button class="btn-cambiar-pass" *ngIf="!isDependent" (click)="toggleChangePass()">
+          Cambiar contraseña
+        </button>
+      </div>
+
+      <input
+        type="file"
+        #fileInput
+        style="display: none"
+        (change)="onFileChange($event)"
+        accept="image/*"
+      />
+    </div>
+
+    <!-- Tarjeta cambiar contraseña -->
+    <div class="change-pass-card" *ngIf="showChangePass && !isDependent">
+      <h2>Cambiar contraseña</h2>
+      <form class="perfil-form">
+        <label>Contraseña actual</label>
+        <input
+          type="password"
+          [(ngModel)]="currentPassword"
+          name="currentPassword"
+          placeholder="********"
+        />
+
+        <label>Nueva contraseña</label>
+        <input
+          type="password"
+          [(ngModel)]="newPassword"
+          name="newPassword"
+          placeholder="********"
+        />
+
+        <label>Confirmar nueva contraseña</label>
+        <input
+          type="password"
+          [(ngModel)]="confirmPassword"
+          name="confirmPassword"
+          placeholder="********"
+        />
+
+        <p *ngIf="passwordsMismatch" class="error">Las contraseñas no coinciden</p>
+
+        <div class="actions">
+          <button
+            class="btn-changepassword"
+            type="button"
+            (click)="onChangePassword()"
+            [disabled]="loading || passwordsMismatch"
+          >
+            Guardar Contraseña
+          </button>
+
+          <button type="button" (click)="toggleChangePass()">Cancelar</button>
+        </div>
+
+        <p *ngIf="passMessage" [class.success]="passSuccess" [class.error]="!passSuccess">
+          {{ passMessage }}
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <!-- 📝 Columna derecha: información del perfil -->
+  <div class="perfil-form-container">
+    <div class="perfil-message">
+      <h2>Mi Perfil</h2>
+      <p>Consulta y edita tu información personal</p>
+    </div>
+
+    <div *ngIf="user; else noUser" class="perfil-card">
+      <!-- Información (modo lectura) -->
+      <div class="info" *ngIf="!editMode; else editForm">
+        <p><strong>DNI:</strong> {{ user.DNI }}</p>
+        <p><strong>Nombre:</strong> {{ user.nombre }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Teléfono:</strong> {{ user.telefono }}</p>
+        <p><strong>Rol:</strong> {{ user.Rol }}</p>
+
+        <p *ngIf="isDependent" class="dependiente-msg">Este perfil está gestionado por un tutor.</p>
+
+        <div class="actions">
+          <button *ngIf="!isDependent" (click)="toggleEdit()">Editar perfil</button>
+          <button class="btn-logout" (click)="logout()">Cerrar sesión</button>
+        </div>
+      </div>
+
+      <!-- Formulario edición -->
+      <ng-template #editForm>
+        <form class="perfil-form">
+          <label>Nombre</label>
+          <input [(ngModel)]="user.nombre" name="nombre" [disabled]="isDependent" />
+
+          <label>Email</label>
+          <input [(ngModel)]="user.email" name="email" [disabled]="isDependent" />
+
+          <label>Teléfono</label>
+          <input [(ngModel)]="user.telefono" name="telefono" [disabled]="isDependent" />
+
+          <label>Rol</label>
+          <select [(ngModel)]="user.Rol" name="Rol" [disabled]="isDependent || !isAdminRole()">
+            <option value="jugador">Jugador</option>
+            <option value="entrenador">Entrenador</option>
+          </select>
+
+          <div class="actions">
+            <button *ngIf="!isDependent" type="button" (click)="saveChanges()" [disabled]="loading">
+              {{ loading ? 'Guardando...' : 'Guardar cambios' }}
+            </button>
+
+            <button type="button" (click)="toggleEdit()">Cancelar</button>
+          </div>
+
+          <p *ngIf="errorMsg" class="error">{{ errorMsg }}</p>
+        </form>
+      </ng-template>
+    </div>
+
+    <ng-template #noUser>
+      <p>No hay usuario logueado.</p>
+    </ng-template>
+  </div>
+</div>

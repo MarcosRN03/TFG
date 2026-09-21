@@ -1,0 +1,59 @@
+<h2 mat-dialog-title>Añadir jugadores al equipo</h2>
+
+<div mat-dialog-content class="content">
+  <mat-form-field appearance="outline" class="full">
+    <mat-label>Buscar por DNI o nombre</mat-label>
+    <input matInput [(ngModel)]="searchQuery" />
+  </mat-form-field>
+
+  @if (errorMessage) {
+    <div class="alert alert-danger">{{ errorMessage }}</div>
+  }
+
+  <div *ngIf="filteredPlayers.length; else empty">
+    <div class="row" *ngFor="let player of filteredPlayers">
+      <div class="info">
+        <div class="user-avatar">
+          <img
+            *ngIf="player.foto"
+            [src]="'http://localhost:3000' + player.foto"
+            class="avatar-img"
+          />
+          <div *ngIf="!player.foto" class="avatar-placeholder">
+            {{ player.nombre[0] }}
+          </div>
+          <div class="user-data">
+            <strong>{{ player.nombre }}</strong>
+            <div class="muted" *ngIf="player.equipo_nombre">
+              Equipo actual: {{ player.equipo_nombre }}
+            </div>
+            <div class="muted" *ngIf="!player.equipo_nombre">Sin equipo</div>
+          </div>
+        </div>
+      </div>
+
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="player.equipo_id === data.equipoId"
+        (click)="assignPlayer(player.DNI)"
+      >
+        {{
+          player.equipo_id === data.equipoId
+            ? 'Ya está en este equipo'
+            : player.equipo_id
+              ? 'Mover'
+              : 'Añadir'
+        }}
+      </button>
+    </div>
+  </div>
+
+  <ng-template #empty>
+    <p class="muted">No hay jugadores que coincidan.</p>
+  </ng-template>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cerrar</button>
+</div>

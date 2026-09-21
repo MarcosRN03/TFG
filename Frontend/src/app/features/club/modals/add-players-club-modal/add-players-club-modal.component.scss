@@ -1,0 +1,20 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+  
+.full {
+    width: 100%;
+}
+  
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+mat-form-field {
+    margin-top: 17px !important;
+}
+  
